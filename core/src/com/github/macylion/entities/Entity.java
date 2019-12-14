@@ -15,11 +15,11 @@ public class Entity extends Rectangle{
 	protected BodyDef groundBodyDef;
 	protected Body groundBody;
 	
-	public Entity(Vector2 position, World world) {
+	public Entity(Vector2 position, World world, int width, int height) {
 		this.x = position.x;
 		this.y = position.y;
-		this.width = 30;
-		this.height = 48;
+		this.width = width;
+		this.height = height;
 		
 		groundBodyDef = new BodyDef();
 		groundBodyDef.type = BodyType.DynamicBody;
