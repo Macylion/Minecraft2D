@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.github.macylion.entities.Player;
 import com.github.macylion.overworld.Overworld;
 import com.github.macylion.texturebank.TextureBank;
 
@@ -20,6 +21,7 @@ public class Minecraft2D extends ApplicationAdapter {
 	TextureBank txtBank;
 	OrthographicCamera cam;
 	Overworld overworld;
+	Player player;
 	//debug
 	Vector2 debugPos;
 	float debugZoom = 1;
@@ -35,6 +37,8 @@ public class Minecraft2D extends ApplicationAdapter {
 		loadTextures();
 		cam = new OrthographicCamera(WIDTH, HEIGHT);
 		overworld = new Overworld(WIDTH, HEIGHT);
+		player = new Player(new Vector2(0, 768), overworld.getWorld(), txtBank);
+		
 		//debug
 		debugPos = new Vector2(0, 0);
 		debugFont = new BitmapFont();
@@ -44,6 +48,8 @@ public class Minecraft2D extends ApplicationAdapter {
 	
 	public void loadTextures() {
 		System.out.println("[SYSTEM] Loading textures...");
+		
+		txtBank.addTexture("none.png", "none");
 		
 		txtBank.addTexture("blocks/brick.png", "b-brick");
 		txtBank.addTexture("blocks/copper_ore.png", "b-copper-ore");
@@ -59,6 +65,10 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank.addTexture("blocks/wood_log.png", "b-wood-log");
 		txtBank.addTexture("blocks/wood.png", "b-wood");
 		
+		txtBank.addTexture("entities/player/adventurer-idle-00.png", "e-player-idle-0");
+		txtBank.addTexture("entities/player/adventurer-idle-01.png", "e-player-idle-1");
+		txtBank.addTexture("entities/player/adventurer-idle-02.png", "e-player-idle-2");
+		
 		System.out.println("[SYSTEM] Textures loaded.");
 	}
 
@@ -69,6 +79,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		overworld.draw(txtBank, batch, cam);
+		player.draw(batch);
 		//debug
 		debugFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), cam.position.x-480, cam.position.y+320);
 		//end debug
@@ -79,6 +90,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 		overworld.update(cam);
+		player.update();
 		//debug
 		if(Gdx.input.isKeyPressed(Keys.NUMPAD_6))
 			debugPos.x += debugSpeed * Gdx.graphics.getDeltaTime();

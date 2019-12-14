@@ -3,6 +3,7 @@ package com.github.macylion.texturebank;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class TextureBank {
 	
@@ -37,6 +38,13 @@ public class TextureBank {
 		for(TextureInstance ti : this.textures) 
 			if(ti.getKey().equals(key))
 				return ti.getTexture();
+		return null;
+	}
+	
+	public TextureRegion getTextureRegion(String key) {
+		for(TextureInstance ti : this.textures) 
+			if(ti.getKey().equals(key))
+				return TextureRegion.split(ti.getTexture(), 50, 37)[0][0];
 		return null;
 	}
 	

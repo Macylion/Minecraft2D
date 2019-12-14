@@ -88,6 +88,10 @@ public class Overworld {
 		this.renderRect.setPosition(cam.position.x - (this.screenWidth/2), cam.position.y - (this.screenHeight/2));
 	}
 	
+	public World getWorld() {
+		return this.world;
+	}
+	
 	public void dispose() {
 		for(Block b : this.blocks)
 			b.dispose();
