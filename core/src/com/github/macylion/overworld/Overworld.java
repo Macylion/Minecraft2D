@@ -30,8 +30,14 @@ public class Overworld {
 		this.debugRenderer = new Box2DDebugRenderer();
 		this.blocks = new ArrayList<Block>();
 		this.blocks.add(new Block(0, 0, "b-brick", this.world));
+		generateWorld();
 	}
 	
+	private void generateWorld() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void draw(TextureBank bank, SpriteBatch batch, OrthographicCamera camera) {
 		for(Block b : this.blocks)
 			b.draw(batch, bank);
