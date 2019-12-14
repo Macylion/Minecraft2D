@@ -20,6 +20,8 @@ public class Minecraft2D extends ApplicationAdapter {
 	Overworld overworld;
 	//debug
 	Vector2 debugPos;
+	float debugZoom = 0.2f;
+	float debugSpeed = 250.0f;
 	
 	@Override
 	public void create () {
@@ -63,7 +65,6 @@ public class Minecraft2D extends ApplicationAdapter {
 		batch.setProjectionMatrix(cam.combined);
 		overworld.update();
 		//debug
-		float debugSpeed = 250;
 		if(Gdx.input.isKeyPressed(Keys.NUMPAD_6))
 			debugPos.x += debugSpeed * Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Keys.NUMPAD_4))
@@ -72,6 +73,19 @@ public class Minecraft2D extends ApplicationAdapter {
 			debugPos.y += debugSpeed * Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Keys.NUMPAD_2))
 			debugPos.y -= debugSpeed * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyJustPressed(Keys.PLUS))
+			debugZoom -= 0.2f;
+		if(Gdx.input.isKeyJustPressed(Keys.MINUS))
+			debugZoom += 0.2f;
+		if(Gdx.input.isKeyJustPressed(Keys.NUMPAD_9)) {
+			debugSpeed += 50;
+			System.out.println("[DEBUG] CAM SPEED: " + debugSpeed);
+		}
+		if(Gdx.input.isKeyJustPressed(Keys.NUMPAD_7)) {
+			debugSpeed -= 50;
+			System.out.println("[DEBUG] CAM SPEED: " + debugSpeed);
+		}
+		cam.zoom = debugZoom;
 		cam.position.set(debugPos, 0);
 	}
 

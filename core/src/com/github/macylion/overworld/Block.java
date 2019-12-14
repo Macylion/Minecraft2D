@@ -21,6 +21,7 @@ public class Block extends Rectangle{
 		this.width = 32;
 		this.height = 32;
 		this.txtKey = textureKey;
+		System.out.println(x +" : "+ y);
 		
 		BodyDef groundBodyDef = new BodyDef();  
 		groundBodyDef.position.set(new Vector2(this.x+(this.width/2), this.y+(this.height/2)));  
