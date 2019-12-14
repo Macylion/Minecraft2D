@@ -5,9 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2D;
+import com.github.macylion.overworld.Overworld;
 import com.github.macylion.texturebank.TextureBank;
 
 public class Minecraft2D extends ApplicationAdapter {
@@ -16,6 +17,7 @@ public class Minecraft2D extends ApplicationAdapter {
 	SpriteBatch batch;
 	TextureBank txtBank;
 	OrthographicCamera cam;
+	Overworld overworld;
 	//debug
 	Vector2 debugPos;
 	
@@ -25,6 +27,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank = new TextureBank();
 		loadTextures();
 		cam = new OrthographicCamera(WIDTH, HEIGHT);
+		overworld = new Overworld(WIDTH, HEIGHT);
 		//debug
 		debugPos = new Vector2(0, 0);
 	}
@@ -48,16 +51,17 @@ public class Minecraft2D extends ApplicationAdapter {
 	@Override
 	public void render () {
 		update();
-		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(txtBank.getTexture("b-brick"), 0, 0);
+		overworld.draw(txtBank, batch, cam);
 		batch.end();
 	}
 	
 	private void update() {
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
+		overworld.update();
 		//debug
 		float debugSpeed = 250;
 		if(Gdx.input.isKeyPressed(Keys.NUMPAD_6))
@@ -75,5 +79,6 @@ public class Minecraft2D extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		txtBank.dispose();
+		overworld.dispose();
 	}
 }
