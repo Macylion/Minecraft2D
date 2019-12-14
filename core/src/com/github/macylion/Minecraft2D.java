@@ -23,19 +23,35 @@ public class Minecraft2D extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		txtBank = new TextureBank();
-		txtBank.addTexture("badlogic.jpg", "badlogic");
+		loadTextures();
 		cam = new OrthographicCamera(WIDTH, HEIGHT);
 		//debug
 		debugPos = new Vector2(0, 0);
+	}
+	
+	public void loadTextures() {
+		txtBank.addTexture("blocks/brick.png", "b-brick");
+		txtBank.addTexture("blocks/copper_ore.png", "b-copper-ore");
+		txtBank.addTexture("blocks/dirt_grass.png", "b-dirt-grass");
+		txtBank.addTexture("blocks/dirt.png", "b-dirt");
+		txtBank.addTexture("blocks/glass.png", "b-glass");
+		txtBank.addTexture("blocks/iron_ore.png", "b-iron-ore");
+		txtBank.addTexture("blocks/rock.png", "b-rock");
+		txtBank.addTexture("blocks/sand.png", "b-sand");
+		txtBank.addTexture("blocks/tin_ore.png", "b-tin-ore");
+		txtBank.addTexture("blocks/void.png", "b-void");
+		txtBank.addTexture("blocks/wood_leaf.png", "b-wood-leaf");
+		txtBank.addTexture("blocks/wood_log.png", "b-wood-log");
+		txtBank.addTexture("blocks/wood.png", "b-wood");
 	}
 
 	@Override
 	public void render () {
 		update();
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(txtBank.getTexture("badlogic"), 0, 1);
+		batch.draw(txtBank.getTexture("b-brick"), 0, 0);
 		batch.end();
 	}
 	
