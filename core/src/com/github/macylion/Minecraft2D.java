@@ -2,9 +2,11 @@ package com.github.macylion;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
@@ -20,11 +22,14 @@ public class Minecraft2D extends ApplicationAdapter {
 	Overworld overworld;
 	//debug
 	Vector2 debugPos;
-	float debugZoom = 0.2f;
+	float debugZoom = 1;
 	float debugSpeed = 250.0f;
+	BitmapFont debugFont;
 	
 	@Override
 	public void create () {
+		System.out.println("[SYSTEM] Game starting...");
+		
 		batch = new SpriteBatch();
 		txtBank = new TextureBank();
 		loadTextures();
@@ -32,9 +37,14 @@ public class Minecraft2D extends ApplicationAdapter {
 		overworld = new Overworld(WIDTH, HEIGHT);
 		//debug
 		debugPos = new Vector2(0, 0);
+		debugFont = new BitmapFont();
+		
+		System.out.println("[SYSTEM] Game started.");
 	}
 	
 	public void loadTextures() {
+		System.out.println("[SYSTEM] Loading textures...");
+		
 		txtBank.addTexture("blocks/brick.png", "b-brick");
 		txtBank.addTexture("blocks/copper_ore.png", "b-copper-ore");
 		txtBank.addTexture("blocks/dirt_grass.png", "b-dirt-grass");
@@ -48,6 +58,8 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank.addTexture("blocks/wood_leaf.png", "b-wood-leaf");
 		txtBank.addTexture("blocks/wood_log.png", "b-wood-log");
 		txtBank.addTexture("blocks/wood.png", "b-wood");
+		
+		System.out.println("[SYSTEM] Textures loaded.");
 	}
 
 	@Override
@@ -57,6 +69,9 @@ public class Minecraft2D extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		overworld.draw(txtBank, batch, cam);
+		//debug
+		debugFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), cam.position.x-480, cam.position.y+320);
+		//end debug
 		batch.end();
 	}
 	
@@ -85,6 +100,8 @@ public class Minecraft2D extends ApplicationAdapter {
 			debugSpeed -= 50;
 			System.out.println("[DEBUG] CAM SPEED: " + debugSpeed);
 		}
+		if(Gdx.input.isButtonJustPressed(Buttons.LEFT))
+			System.out.println("[DEBUG] CLICK POS: " + Gdx.input.getX() + " : " + Gdx.input.getY());
 		cam.zoom = debugZoom;
 		cam.position.set(debugPos, 0);
 	}

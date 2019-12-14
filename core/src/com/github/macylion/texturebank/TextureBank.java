@@ -25,6 +25,8 @@ public class TextureBank {
 	
 	public TextureBank() {
 		this.textures = new ArrayList<TextureInstance>();
+		
+		System.out.println("[SYSTEM] TextureBank created.");
 	}
 	
 	public void addTexture(String path, String key) {

@@ -33,6 +33,7 @@ public class Overworld {
 	}
 	
 	private void generateWorld() {
+		System.out.println("[WORLD] Generating world...");
 		int worldLenX = 1024;
 		int worldLenY = 768;
 		ArrayList<Vector2> points = new ArrayList<Vector2>();
@@ -43,21 +44,29 @@ public class Overworld {
 			int ran = (int)(Math.random()*(maxSur - minSur) + minSur);
 			points.add(new Vector2(i, ran));
 		}*/
-		Vector2 last = new Vector2(0, 14);
-		for(int i = 0; i <= 4; i++) {
+		Vector2 last = new Vector2(-1024, 14);
+		for(int i = -1024; i <= 1024; i++) {
 			points.add(new Vector2(last.x, last.y));
 			last.x += 1;
 			double ran = Math.random();
-			if(ran >= 0.7f)
+			if(ran >= 0.8f && last.y < 22)
 				last.y += 1;
-			else if(ran >= 0.4f)
+			else if(ran >= 0.6f && last.y > 12)
 				last.y -= 1;
 		}
 			
-		
-		for(Vector2 p : points)
-			this.blocks.add(new Block((int)p.x*32, (int)p.y*32, "b-rock", this.world));
-		
+		for(Vector2 p : points) {
+			int layer = 0;
+			for(int i = (int)p.y; i > -32; i--) {
+				String txt = "b-rock";
+				if(layer == 0) txt = "b-dirt-grass";
+				else if(layer < 5) txt = "b-dirt";
+				if(i == -31) txt = "b-void";
+				this.blocks.add(new Block((int)p.x*32, i*32, txt, this.world));
+				layer++;
+			}
+		}
+		System.out.println("[WORLD] World generated successfully!");
 	}
 	
 	/*
