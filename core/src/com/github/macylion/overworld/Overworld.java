@@ -47,8 +47,8 @@ public class Overworld {
 			int ran = (int)(Math.random()*(maxSur - minSur) + minSur);
 			points.add(new Vector2(i, ran));
 		}*/
-		Vector2 last = new Vector2(-1024, 14);
-		for(int i = -1024; i <= 1024; i++) {
+		Vector2 last = new Vector2(-512, 14);
+		for(int i = -512; i <= 512; i++) {
 			points.add(new Vector2(last.x, last.y));
 			last.x += 1;
 			double ran = Math.random();
@@ -70,6 +70,14 @@ public class Overworld {
 			}
 		}
 		System.out.println("[WORLD] World generated successfully!");
+	}
+	
+	public int highSpawn() {
+		int high = 0;
+		for(Block b : this.blocks)
+			if(b.x == 0 && b.y > high)
+				high = (int) b.y+32;
+		return high;
 	}
 
 	public void draw(TextureBank bank, SpriteBatch batch, OrthographicCamera camera) {

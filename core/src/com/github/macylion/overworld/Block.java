@@ -13,6 +13,7 @@ public class Block extends Rectangle{
 
 	private String txtKey;
 	private PolygonShape groundBox;
+	private Body groundBody;
 	
 	public Block(int x, int y, String textureKey, World world) {
 		super();
@@ -24,7 +25,7 @@ public class Block extends Rectangle{
 		
 		BodyDef groundBodyDef = new BodyDef();  
 		groundBodyDef.position.set(new Vector2(this.x+(this.width/2), this.y+(this.height/2)));  
-		Body groundBody = world.createBody(groundBodyDef);  
+		groundBody = world.createBody(groundBodyDef);  
 		
 		groundBox = new PolygonShape();
 		groundBox.setAsBox(this.width/2, this.height/2);

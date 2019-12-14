@@ -1,5 +1,7 @@
 package com.github.macylion;
 
+import java.awt.Color;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
@@ -10,6 +12,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.macylion.entities.Player;
 import com.github.macylion.overworld.Overworld;
 import com.github.macylion.texturebank.TextureBank;
@@ -20,6 +25,7 @@ public class Minecraft2D extends ApplicationAdapter {
 	SpriteBatch batch;
 	TextureBank txtBank;
 	OrthographicCamera cam;
+	Viewport viewport;
 	Overworld overworld;
 	Player player;
 	//debug
@@ -36,11 +42,12 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank = new TextureBank();
 		loadTextures();
 		cam = new OrthographicCamera(WIDTH, HEIGHT);
+		viewport = new FillViewport(1024, 768, cam);
 		overworld = new Overworld(WIDTH, HEIGHT);
-		player = new Player(new Vector2(0, 768), overworld.getWorld(), txtBank);
+		player = new Player(new Vector2(0, overworld.highSpawn()+8), overworld.getWorld(), txtBank);
 		
 		//debug
-		debugPos = new Vector2(0, 0);
+		debugPos = new Vector2(0, 400);
 		debugFont = new BitmapFont();
 		
 		System.out.println("[SYSTEM] Game started.");
@@ -71,7 +78,7 @@ public class Minecraft2D extends ApplicationAdapter {
 	@Override
 	public void render () {
 		update();
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0.53f, 0.81f, 0.95f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		overworld.draw(txtBank, batch, cam);
@@ -113,6 +120,11 @@ public class Minecraft2D extends ApplicationAdapter {
 		cam.zoom = debugZoom;
 		cam.position.set(debugPos, 0);
 	}
+	
+	@Override
+	public void resize(int width, int height) {
+        viewport.update(width, height);
+    }
 
 	@Override
 	public void dispose () {

@@ -17,7 +17,7 @@ public class Player extends Entity{
 	float stateTime;
 	
 	public Player(Vector2 position, World world, TextureBank bank) {
-		super(position, world, 19, 34);
+		super(position, world, 19, 30);
 
 		/*TextureRegion[][] tmp = TextureRegion.split(bank.getTexture("e-player"), 
 				bank.getTexture("e-player").getWidth() / 8,
@@ -42,8 +42,7 @@ public class Player extends Entity{
 	}
 	
 	public void update() {
-		this.x = this.groundBody.getPosition().x - (this.width/2);
-		this.y = this.groundBody.getPosition().y - (this.height/2);
+		this.fixedUpdate();
 		this.stateTime += Gdx.graphics.getDeltaTime();
 	}
 }
