@@ -40,13 +40,6 @@ public class Overworld {
 		int worldLenX = 1024;
 		int worldLenY = 768;
 		ArrayList<Vector2> points = new ArrayList<Vector2>();
-		/*float step = 100;
-		float maxSur = 32;
-		float minSur = 10;
-		for(int i = 1024; i > 0; i -= step) {
-			int ran = (int)(Math.random()*(maxSur - minSur) + minSur);
-			points.add(new Vector2(i, ran));
-		}*/
 		Vector2 last = new Vector2(-512, 14);
 		for(int i = -512; i <= 512; i++) {
 			points.add(new Vector2(last.x, last.y));
