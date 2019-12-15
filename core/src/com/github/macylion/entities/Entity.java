@@ -25,12 +25,13 @@ public class Entity extends Rectangle{
 		groundBodyDef.type = BodyType.DynamicBody;
 		groundBodyDef.position.set(new Vector2(this.x+(this.width/2), this.y+(this.height/2)));  
 		groundBody = world.createBody(groundBodyDef);  
+		groundBody.setFixedRotation(true);
 		groundBox = new PolygonShape();
 		groundBox.setAsBox(this.width/2, this.height/2);
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = groundBox;
-		fixtureDef.density = 0.5f; 
+		fixtureDef.density = 1; 
 		fixtureDef.friction = 1;
 		
 		groundBody.createFixture(fixtureDef); 

@@ -1,6 +1,7 @@
 package com.github.macylion.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,38 +12,65 @@ import com.github.macylion.thirdparty.GifDecoder;
 
 public class Player extends Entity{
 	
-	private Animation<TextureRegion> idleAnimation;
-	private Animation<TextureRegion> runAnimation;
-	private Animation<TextureRegion> jumpAnimation;
-	float stateTime;
+	private Animation<TextureRegion>[] anims;
+	private int currAnim = 0;
+	private float stateTime;
 	
 	public Player(Vector2 position, World world, TextureBank bank) {
 		super(position, world, 19, 30);
-
-		/*TextureRegion[][] tmp = TextureRegion.split(bank.getTexture("e-player"), 
-				bank.getTexture("e-player").getWidth() / 8,
-				bank.getTexture("e-player").getHeight() / 16);*/
 		
-		/*TextureRegion[] idleFrames = new TextureRegion[3];
-		idleFrames[0] = bank.getTextureRegion("e-player-idle-0");
-		idleFrames[1] = bank.getTextureRegion("e-player-idle-1");
-		idleFrames[2] = bank.getTextureRegion("e-player-idle-2");
-		this.idleAnimation = new Animation<TextureRegion>(0.25f, idleFrames);*/
+		this.anims = new Animation[3];
 		
-		this.idleAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Entities/player/idle.gif").read());
-		this.jumpAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Entities/player/jump.gif").read());
-		this.runAnimation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Entities/player/run.gif").read());
+		this.anims[0] = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Entities/player/run.gif").read());
+		this.anims[1] = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Entities/player/jump.gif").read());
+		this.anims[2] = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("Entities/player/idle.gif").read());
 		
 		this.stateTime = 0;
+		this.groundBody.setGravityScale(10);
 	}
 	
 	public void draw(SpriteBatch batch) {
-		TextureRegion currentFrame = idleAnimation.getKeyFrame(stateTime, true);
+		TextureRegion currentFrame = this.anims[this.currAnim].getKeyFrame(stateTime, true);
 		batch.draw(currentFrame, this.x, this.y);
 	}
 	
 	public void update() {
 		this.fixedUpdate();
+		this.movement();
 		this.stateTime += Gdx.graphics.getDeltaTime();
+	}
+	
+	private void movement() {
+		
+		boolean isUp = (Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.SPACE));
+		boolean isRight = (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.RIGHT));
+		boolean isLeft = (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.LEFT));
+		boolean isSprinting = (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT));
+		
+		float speed = 1024;
+		float sprintMultiplier = 1;
+		Vector2 newPos = new Vector2(0, 0);
+		
+		if(isSprinting)
+			sprintMultiplier = 2f;
+		if(isUp) {
+			newPos.y += 10240;
+			this.currAnim = 1;
+		}
+		if(isRight) {
+			newPos.x += speed;
+			this.currAnim = 0;
+		}
+		else if(isLeft) {
+			newPos.x -= speed;
+			this.currAnim = 0;
+		}
+		else {
+			this.groundBody.setLinearVelocity(0, this.groundBody.getLinearVelocity().y);
+			this.currAnim = 2; //TODO: if in air do jump anim
+		}
+		
+		newPos.x *= sprintMultiplier;
+		this.groundBody.applyLinearImpulse(newPos, this.groundBody.getPosition(), true);
 	}
 }
