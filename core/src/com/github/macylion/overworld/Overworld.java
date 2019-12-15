@@ -11,15 +11,23 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.github.macylion.entities.Player;
 import com.github.macylion.texturebank.TextureBank;
+
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 
 public class Overworld {
 	
 	int screenWidth;
 	int screenHeight;
 	World world;
+	RayHandler ray;
 	public ArrayList<Block> blocks;
 	Rectangle renderRect;
+	PointLight sun;
+	PointLight sunR;
+	PointLight sunL;
 	//debug
 	Box2DDebugRenderer debugRenderer;
 	boolean isDebug = false;
@@ -29,6 +37,18 @@ public class Overworld {
 		this.screenWidth = width;
 		this.screenHeight = height;
 		this.world = new World(new Vector2(0, -100), true); 
+		this.ray = new RayHandler(this.world);
+		this.ray.setShadows(true);
+		
+		this.sun = new PointLight(this.ray, 32);
+		this.sun.setPosition(0, 768);
+		this.sun.setColor(0f, 0f, 0f, 1);
+		this.sun.setDistance(768*2);
+		this.sun.setSoftnessLength(128);
+		
+		this.sunL = this.sun;
+		this.sunR = this.sun;
+		
 		this.debugRenderer = new Box2DDebugRenderer();
 		this.blocks = new ArrayList<Block>();
 		this.renderRect = new Rectangle(0, 0, this.screenWidth, this.screenHeight);
@@ -82,11 +102,14 @@ public class Overworld {
 			this.debugRenderer.render(world, camera.combined);
 		if(Gdx.input.isKeyJustPressed(Keys.NUMPAD_0))
 			this.isDebug = !this.isDebug;
+
+		this.ray.updateAndRender();
 	}
 	
 	public void update(OrthographicCamera cam) {
 		this.world.step(1/60f, 6, 2);
 		this.renderRect.setPosition(cam.position.x - (this.screenWidth/2), cam.position.y - (this.screenHeight/2));
+		this.ray.setCombinedMatrix(cam);
 	}
 	
 	public World getWorld() {
@@ -96,6 +119,15 @@ public class Overworld {
 	public void dispose() {
 		for(Block b : this.blocks)
 			b.dispose();
+		this.ray.dispose();
+	}
+	
+	public void setSunPosition(Player player) {
+		int sunY = 768;
+		if(player.y >= 400) sunY = (int) (player.y + 400);
+		this.sun.setPosition(player.x, sunY);
+		this.sunR.setPosition(this.sun.getPosition().x, this.sun.getPosition().y+512);
+		this.sunL.setPosition(this.sun.getPosition().x, this.sun.getPosition().y-512);
 	}
 
 }

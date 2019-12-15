@@ -45,5 +45,9 @@ public class Entity extends Rectangle{
 	public Vector2 getPosition() {
 		return this.groundBody.getPosition();
 	}
-
+	
+	public Body getBody() {
+		return this.groundBody;
+	}
+	
 }

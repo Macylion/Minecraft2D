@@ -101,4 +101,5 @@ public class Player extends Entity{
 			this.groundBody.setLinearVelocity(0, this.groundBody.getLinearVelocity().y);
 		}
 	}
+	
 }
