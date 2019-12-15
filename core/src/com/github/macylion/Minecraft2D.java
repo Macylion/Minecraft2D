@@ -92,7 +92,15 @@ public class Minecraft2D extends ApplicationAdapter {
 		
 		GUIbatch.begin();
 		//debug
-		debugFont.draw(GUIbatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 24, 700);
+		debugFont.draw(GUIbatch, "FrameID: " + Gdx.graphics.getFrameId(), 12, 760);
+		debugFont.draw(GUIbatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 12, 740);
+		debugFont.draw(GUIbatch, "Player X: " + player.getX(), 12, 720);
+		debugFont.draw(GUIbatch, "Player Y: " + player.getY(), 12, 700);
+		debugFont.draw(GUIbatch, "Player Velocity X: " + player.getBody().getLinearVelocity().x, 12, 680);
+		debugFont.draw(GUIbatch, "Player Velocity Y: " + player.getBody().getLinearVelocity().y, 12, 660);
+		debugFont.draw(GUIbatch, "Jump: " + player.isJump(), 12, 640);
+		debugFont.draw(GUIbatch, "Animation: " + player.getCurrentAnim(), 12, 620);
+		debugFont.draw(GUIbatch, "deltaTime: " + Gdx.graphics.getDeltaTime(), 12, 600);
 		//end debug
 		GUIbatch.end();
 	}

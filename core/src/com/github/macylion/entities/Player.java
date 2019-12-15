@@ -102,4 +102,12 @@ public class Player extends Entity{
 		}
 	}
 	
+	public boolean isJump() {
+		return this.isJump;
+	}
+	
+	public int getCurrentAnim() {
+		return this.currAnim;
+	}
+	
 }
