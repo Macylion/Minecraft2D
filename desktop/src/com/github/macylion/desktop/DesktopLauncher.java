@@ -13,6 +13,8 @@ public class DesktopLauncher {
 		config.height = 768;
 		config.fullscreen = false;
 		config.addIcon("icon.png", Files.FileType.Local);
+		config.backgroundFPS = -1;
+		config.foregroundFPS = 0;
 		new LwjglApplication(new Minecraft2D(), config);
 	}
 }

@@ -57,8 +57,6 @@ public class Overworld {
 	
 	public void generateWorld() {
 		System.out.println("[WORLD] Generating world...");
-		int worldLenX = 1024;
-		int worldLenY = 768;
 		ArrayList<Vector2> points = new ArrayList<Vector2>();
 		Vector2 last = new Vector2(-512, 14);
 		for(int i = -512; i <= 512; i++) {

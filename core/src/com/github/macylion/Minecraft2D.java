@@ -29,6 +29,7 @@ public class Minecraft2D extends ApplicationAdapter {
 	final int WIDTH = 1024;
 	final int HEIGHT = 768;
 	SpriteBatch batch;
+	SpriteBatch GUIbatch;
 	TextureBank txtBank;
 	OrthographicCamera cam;
 	Viewport viewport;
@@ -42,6 +43,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		System.out.println("[SYSTEM] Game starting...");
 		
 		batch = new SpriteBatch();
+		GUIbatch = new SpriteBatch();
 		txtBank = new TextureBank();
 		loadTextures();
 		cam = new OrthographicCamera(WIDTH, HEIGHT);
@@ -82,13 +84,17 @@ public class Minecraft2D extends ApplicationAdapter {
 		update();
 		Gdx.gl.glClearColor(0.53f, 0.81f, 0.95f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		batch.begin();
 		player.draw(batch);
 		overworld.draw(txtBank, batch, cam);
-		//debug
-		debugFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), cam.position.x-480, cam.position.y+320);
-		//end debug
 		batch.end();
+		
+		GUIbatch.begin();
+		//debug
+		debugFont.draw(GUIbatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 24, 700);
+		//end debug
+		GUIbatch.end();
 	}
 	
 	private void update() {
@@ -117,5 +123,6 @@ public class Minecraft2D extends ApplicationAdapter {
 		batch.dispose();
 		txtBank.dispose();
 		overworld.dispose();
+		GUIbatch.dispose();
 	}
 }
