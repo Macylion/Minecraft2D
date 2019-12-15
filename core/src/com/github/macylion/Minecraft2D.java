@@ -93,7 +93,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 		overworld.update(cam);
-		player.update();
+		player.update(this.overworld.blocks);
 		//debug
 		if(Gdx.input.isKeyPressed(Keys.NUMPAD_6))
 			debugPos.x += debugSpeed * Gdx.graphics.getDeltaTime();

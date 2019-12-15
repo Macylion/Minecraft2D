@@ -15,10 +15,10 @@ import com.github.macylion.texturebank.TextureBank;
 
 public class Overworld {
 	
-	private int screenWidth;
-	private int screenHeight;
-	private World world;
-	ArrayList<Block> blocks;
+	int screenWidth;
+	int screenHeight;
+	World world;
+	public ArrayList<Block> blocks;
 	Rectangle renderRect;
 	//debug
 	Box2DDebugRenderer debugRenderer;
@@ -28,14 +28,14 @@ public class Overworld {
 		Box2D.init();
 		this.screenWidth = width;
 		this.screenHeight = height;
-		this.world = new World(new Vector2(0, -10), true); 
+		this.world = new World(new Vector2(0, -100), true); 
 		this.debugRenderer = new Box2DDebugRenderer();
 		this.blocks = new ArrayList<Block>();
 		this.renderRect = new Rectangle(0, 0, this.screenWidth, this.screenHeight);
 		generateWorld();
 	}
 	
-	private void generateWorld() {
+	public void generateWorld() {
 		System.out.println("[WORLD] Generating world...");
 		int worldLenX = 1024;
 		int worldLenY = 768;

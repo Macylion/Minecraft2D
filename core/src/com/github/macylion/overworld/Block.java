@@ -14,6 +14,7 @@ public class Block extends Rectangle{
 	private String txtKey;
 	private PolygonShape groundBox;
 	private Body groundBody;
+	private boolean isOnScreen;
 	
 	public Block(int x, int y, String textureKey, World world) {
 		super();
@@ -33,12 +34,20 @@ public class Block extends Rectangle{
 	}
 	
 	public void draw(SpriteBatch batch, TextureBank bank, Rectangle renderRect) {
-		if(renderRect.overlaps(this))
+		if(renderRect.overlaps(this)) {
 			batch.draw(bank.getTexture(this.txtKey), this.x, this.y);
+			this.isOnScreen = true;
+		}
+		else 
+			this.isOnScreen = false;
 	}
 	
 	public void dispose() {
 		groundBox.dispose();
+	}
+
+	public boolean isOnScreen() {
+		return isOnScreen;
 	}
 
 }

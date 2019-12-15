@@ -31,8 +31,8 @@ public class Entity extends Rectangle{
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = groundBox;
-		fixtureDef.density = 1; 
-		fixtureDef.friction = 1;
+		fixtureDef.density = 0.5f; 
+		fixtureDef.friction = 0;
 		
 		groundBody.createFixture(fixtureDef); 
 	}
