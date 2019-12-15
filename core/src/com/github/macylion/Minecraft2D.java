@@ -29,9 +29,6 @@ public class Minecraft2D extends ApplicationAdapter {
 	Overworld overworld;
 	Player player;
 	//debug
-	Vector2 debugPos;
-	float debugZoom = 1;
-	float debugSpeed = 250.0f;
 	BitmapFont debugFont;
 	
 	@Override
@@ -47,7 +44,6 @@ public class Minecraft2D extends ApplicationAdapter {
 		player = new Player(new Vector2(0, overworld.highSpawn()+8), overworld.getWorld(), txtBank);
 		
 		//debug
-		debugPos = new Vector2(0, 400);
 		debugFont = new BitmapFont();
 		
 		System.out.println("[SYSTEM] Game started.");
@@ -94,31 +90,14 @@ public class Minecraft2D extends ApplicationAdapter {
 		batch.setProjectionMatrix(cam.combined);
 		overworld.update(cam);
 		player.update(this.overworld.blocks);
+		cam.position.set(this.player.getPosition(), 0);
+		if(Gdx.input.isKeyJustPressed(Keys.PLUS) && cam.zoom < 1)
+			cam.zoom += 0.1f;
+		if(Gdx.input.isKeyJustPressed(Keys.MINUS) && cam.zoom > 0.2f)
+			cam.zoom -= 0.1f;
 		//debug
-		if(Gdx.input.isKeyPressed(Keys.NUMPAD_6))
-			debugPos.x += debugSpeed * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Keys.NUMPAD_4))
-			debugPos.x -= debugSpeed * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Keys.NUMPAD_8))
-			debugPos.y += debugSpeed * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Keys.NUMPAD_2))
-			debugPos.y -= debugSpeed * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyJustPressed(Keys.PLUS))
-			debugZoom -= 0.2f;
-		if(Gdx.input.isKeyJustPressed(Keys.MINUS))
-			debugZoom += 0.2f;
-		if(Gdx.input.isKeyJustPressed(Keys.NUMPAD_9)) {
-			debugSpeed += 50;
-			System.out.println("[DEBUG] CAM SPEED: " + debugSpeed);
-		}
-		if(Gdx.input.isKeyJustPressed(Keys.NUMPAD_7)) {
-			debugSpeed -= 50;
-			System.out.println("[DEBUG] CAM SPEED: " + debugSpeed);
-		}
 		if(Gdx.input.isButtonJustPressed(Buttons.LEFT))
 			System.out.println("[DEBUG] CLICK POS: " + Gdx.input.getX() + " : " + Gdx.input.getY());
-		cam.zoom = debugZoom;
-		cam.position.set(debugPos, 0);
 	}
 	
 	@Override

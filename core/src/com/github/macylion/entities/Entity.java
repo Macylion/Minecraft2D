@@ -41,5 +41,9 @@ public class Entity extends Rectangle{
 		this.x = this.groundBody.getPosition().x - (this.width/2);
 		this.y = this.groundBody.getPosition().y - (this.height/2);
 	}
+	
+	public Vector2 getPosition() {
+		return this.groundBody.getPosition();
+	}
 
 }

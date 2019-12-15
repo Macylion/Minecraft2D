@@ -84,7 +84,6 @@ public class Player extends Entity{
 			if(this.jumpTime >= this.jumpTimeMax) {
 				this.isJump = false;
 				this.jumpTime = 0;
-				System.out.println('d');
 			}
 		}
 		
