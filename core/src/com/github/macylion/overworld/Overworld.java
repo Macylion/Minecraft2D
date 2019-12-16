@@ -41,7 +41,6 @@ public class Overworld {
 		this.ray.setShadows(true);
 		
 		this.sun = new PointLight[32];
-		
 		for(int i = 0; i <= this.sun.length-1; i++) {
 			this.sun[i] = new PointLight(this.ray, 8); //check other NUM_RAYS
 			this.sun[i].setPosition(0, 768);
@@ -49,6 +48,7 @@ public class Overworld {
 			this.sun[i].setDistance(this.screenHeight*2);
 			this.sun[i].setSoftnessLength(128);
 		}
+		System.out.println("[WORLD] Added " + this.sun.length + " PointLights to pretend to be a sun.");
 		
 		this.debugRenderer = new Box2DDebugRenderer();
 		this.blocks = new ArrayList<Block>();
