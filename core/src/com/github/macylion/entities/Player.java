@@ -73,8 +73,10 @@ public class Player extends Entity{
 		float speed = 60;
 		float sprintMultiplier = 1;
 		
-		if(isSprinting)
+		if(isSprinting) {
 			sprintMultiplier = 2f;
+			this.stateTime += Gdx.graphics.getDeltaTime();
+		}
 		if(isUp && !isInAir) 
 			this.isJump = true;
 		
