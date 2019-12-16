@@ -1,5 +1,6 @@
 package com.github.macylion.overworld;
 
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.World;
 import com.github.macylion.entities.Player;
 import com.github.macylion.texturebank.TextureBank;
@@ -25,9 +27,7 @@ public class Overworld {
 	RayHandler ray;
 	public ArrayList<Block> blocks;
 	Rectangle renderRect;
-	PointLight sun;
-	PointLight sunR;
-	PointLight sunL;
+	PointLight[] sun;
 	//debug
 	Box2DDebugRenderer debugRenderer;
 	boolean isDebug = false;
@@ -40,19 +40,25 @@ public class Overworld {
 		this.ray = new RayHandler(this.world);
 		this.ray.setShadows(true);
 		
-		this.sun = new PointLight(this.ray, 32);
-		this.sun.setPosition(0, 768);
-		this.sun.setColor(0f, 0f, 0f, 1);
-		this.sun.setDistance(768*2);
-		this.sun.setSoftnessLength(128);
+		this.sun = new PointLight[32];
 		
-		this.sunL = this.sun;
-		this.sunR = this.sun;
+		for(int i = 0; i <= this.sun.length-1; i++) {
+			this.sun[i] = new PointLight(this.ray, 8); //check other NUM_RAYS
+			this.sun[i].setPosition(0, 768);
+			this.sun[i].setColor(0, 0, 0, 1);
+			this.sun[i].setDistance(this.screenHeight*2);
+			this.sun[i].setSoftnessLength(128);
+		}
 		
 		this.debugRenderer = new Box2DDebugRenderer();
 		this.blocks = new ArrayList<Block>();
 		this.renderRect = new Rectangle(0, 0, this.screenWidth, this.screenHeight);
 		generateWorld();
+	}
+	
+	public void setSunFilter(Filter filter) {
+		for(PointLight p : this.sun)
+			p.setContactFilter(filter);
 	}
 	
 	public void generateWorld() {
@@ -100,6 +106,10 @@ public class Overworld {
 			this.debugRenderer.render(world, camera.combined);
 		if(Gdx.input.isKeyJustPressed(Keys.NUMPAD_0))
 			this.isDebug = !this.isDebug;
+		if(Gdx.input.isKeyJustPressed(Keys.SLASH))
+			this.ray.setShadows(false);
+		if(Gdx.input.isKeyJustPressed(Keys.STAR))
+			this.ray.setShadows(true);
 
 		this.ray.updateAndRender();
 	}
@@ -123,9 +133,11 @@ public class Overworld {
 	public void setSunPosition(Player player) {
 		int sunY = 768;
 		if(player.y >= 400) sunY = (int) (player.y + 400);
-		this.sun.setPosition(player.x, sunY);
-		this.sunR.setPosition(this.sun.getPosition().x, this.sun.getPosition().y+512);
-		this.sunL.setPosition(this.sun.getPosition().x, this.sun.getPosition().y-512);
+		float divider = this.screenWidth/this.sun.length;
+		for(int i = 0; i <= this.sun.length-1; i +=2) {
+			this.sun[i].setPosition(player.x - (i*divider), sunY);
+			this.sun[i+1].setPosition(player.x + (i*divider), sunY);
+		}
 	}
 
 }

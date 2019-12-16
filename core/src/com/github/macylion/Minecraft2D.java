@@ -50,7 +50,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		viewport = new FillViewport(1024, 768, cam);
 		overworld = new Overworld(WIDTH, HEIGHT);
 		player = new Player(new Vector2(0, overworld.highSpawn()+8), overworld.getWorld(), txtBank);
-		
+		overworld.setSunFilter(player.getFilter());
 		//debug
 		debugFont = new BitmapFont();
 
@@ -101,6 +101,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		debugFont.draw(GUIbatch, "Jump: " + player.isJump(), 12, 640);
 		debugFont.draw(GUIbatch, "Animation: " + player.getCurrentAnim(), 12, 620);
 		debugFont.draw(GUIbatch, "deltaTime: " + Gdx.graphics.getDeltaTime(), 12, 600);
+		debugFont.draw(GUIbatch, "zoom: " + cam.zoom, 12, 580);
 		//end debug
 		GUIbatch.end();
 	}
