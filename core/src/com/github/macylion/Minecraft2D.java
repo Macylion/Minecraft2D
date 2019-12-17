@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.macylion.entities.Player;
+import com.github.macylion.gui.GUI;
 import com.github.macylion.overworld.Overworld;
 import com.github.macylion.texturebank.TextureBank;
 
@@ -29,14 +30,15 @@ public class Minecraft2D extends ApplicationAdapter {
 	final int WIDTH = 1024;
 	final int HEIGHT = 768;
 	SpriteBatch batch;
-	SpriteBatch GUIbatch;
 	TextureBank txtBank;
 	OrthographicCamera cam;
 	Viewport viewport;
 	Overworld overworld;
 	Player player;
+	GUI gui;
 	//debug
 	BitmapFont debugFont;
+	SpriteBatch GUIbatch;
 	
 	@Override
 	public void create () {
@@ -47,9 +49,10 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank = new TextureBank();
 		loadTextures();
 		cam = new OrthographicCamera(WIDTH, HEIGHT);
-		viewport = new FillViewport(1024, 768, cam);
+		viewport = new FillViewport(WIDTH, HEIGHT, cam);
 		overworld = new Overworld(WIDTH, HEIGHT);
 		player = new Player(new Vector2(0, overworld.highSpawn()+8), overworld.getWorld(), txtBank);
+		this.gui = new GUI(WIDTH, HEIGHT);
 		overworld.setSunFilter(player.getFilter());
 		//debug
 		debugFont = new BitmapFont();
@@ -61,6 +64,8 @@ public class Minecraft2D extends ApplicationAdapter {
 		System.out.println("[SYSTEM] Loading textures...");
 		
 		txtBank.addTexture("none.png", "none");
+		txtBank.addTexture("fog.png", "fog");
+		txtBank.addTexture("cursor.png", "cursor");
 		
 		txtBank.addTexture("blocks/brick.png", "b-brick");
 		txtBank.addTexture("blocks/copper_ore.png", "b-copper-ore");
@@ -77,6 +82,14 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank.addTexture("blocks/wood.png", "b-wood");
 		
 		System.out.println("[SYSTEM] Textures loaded.");
+		Inventory.addItem("a", 4);
+
+		Inventory.addItem("d", 4);
+
+		Inventory.addItem("b", 4);
+
+		Inventory.addItem("c", 4);
+		Inventory.addItem("c", 4);
 	}
 
 	@Override
@@ -89,6 +102,8 @@ public class Minecraft2D extends ApplicationAdapter {
 		player.draw(batch);
 		overworld.draw(txtBank, batch, cam);
 		batch.end();
+		
+		gui.draw(txtBank);
 		
 		GUIbatch.begin();
 		//debug
@@ -118,8 +133,12 @@ public class Minecraft2D extends ApplicationAdapter {
 		if(Gdx.input.isKeyJustPressed(Keys.MINUS) && cam.zoom > 0.2f)
 			cam.zoom -= 0.1f;
 		//debug
-		if(Gdx.input.isButtonJustPressed(Buttons.LEFT))
+		if(Gdx.input.isButtonJustPressed(Buttons.LEFT)) {
 			System.out.println("[DEBUG] CLICK POS: " + Gdx.input.getX() + " : " + Gdx.input.getY());
+			System.out.println("[DEBUG] CLICK POS ON MAP: " +
+						(Gdx.input.getX() + (cam.position.x-WIDTH/2)) + " : " +
+						((HEIGHT-Gdx.input.getY()) + (cam.position.y-HEIGHT/2)));
+		}
 	}
 	
 	@Override
@@ -133,6 +152,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank.dispose();
 		overworld.dispose();
 		GUIbatch.dispose();
+		gui.dispose();
 	}
 	
 	//test

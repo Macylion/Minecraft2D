@@ -15,6 +15,7 @@ public class DesktopLauncher {
 		config.addIcon("icon.png", Files.FileType.Local);
 		config.backgroundFPS = -1;
 		config.foregroundFPS = 0;
+		config.resizable = false;
 		new LwjglApplication(new Minecraft2D(), config);
 	}
 }
