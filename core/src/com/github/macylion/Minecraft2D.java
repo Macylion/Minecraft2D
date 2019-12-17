@@ -108,7 +108,7 @@ public class Minecraft2D extends ApplicationAdapter {
 	private void update() {
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
-		overworld.update(cam);
+		overworld.update(cam, player);
 		player.update(this.overworld.blocks);
 		cam.position.set(this.player.getPosition(), 0);
 		if(Gdx.input.isKeyJustPressed(Keys.PLUS) && cam.zoom < 1)
@@ -132,4 +132,6 @@ public class Minecraft2D extends ApplicationAdapter {
 		overworld.dispose();
 		GUIbatch.dispose();
 	}
+	
+	//test
 }
