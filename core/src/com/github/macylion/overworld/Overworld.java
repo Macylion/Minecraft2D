@@ -41,7 +41,7 @@ public class Overworld {
 		
 		this.debugRenderer = new Box2DDebugRenderer();
 		this.blocks = new ArrayList<Block>();
-		this.renderRect = new Rectangle(0, 0, this.screenWidth+32, this.screenHeight);
+		this.renderRect = new Rectangle(0, 0, this.screenWidth, this.screenHeight);
 		generateWorld();
 	}
 	
