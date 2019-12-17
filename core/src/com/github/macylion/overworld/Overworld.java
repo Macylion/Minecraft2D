@@ -27,7 +27,6 @@ public class Overworld {
 	RayHandler ray;
 	public ArrayList<Block> blocks;
 	Rectangle renderRect;
-	PointLight[] sun;
 	//debug
 	Box2DDebugRenderer debugRenderer;
 	boolean isDebug = false;
@@ -40,25 +39,10 @@ public class Overworld {
 		this.ray = new RayHandler(this.world);
 		this.ray.setShadows(true);
 		
-		this.sun = new PointLight[32];
-		for(int i = 0; i <= this.sun.length-1; i++) {
-			this.sun[i] = new PointLight(this.ray, 8); //check other NUM_RAYS
-			this.sun[i].setPosition(0, 768);
-			this.sun[i].setColor(0, 0, 0, 1);
-			this.sun[i].setDistance(this.screenHeight*2);
-			this.sun[i].setSoftnessLength(128);
-		}
-		System.out.println("[WORLD] Added " + this.sun.length + " PointLights to pretend to be a sun.");
-		
 		this.debugRenderer = new Box2DDebugRenderer();
 		this.blocks = new ArrayList<Block>();
 		this.renderRect = new Rectangle(0, 0, this.screenWidth, this.screenHeight);
 		generateWorld();
-	}
-	
-	public void setSunFilter(Filter filter) {
-		for(PointLight p : this.sun)
-			p.setContactFilter(filter);
 	}
 	
 	public void generateWorld() {
@@ -128,16 +112,6 @@ public class Overworld {
 		for(Block b : this.blocks)
 			b.dispose();
 		this.ray.dispose();
-	}
-	
-	public void setSunPosition(Player player) {
-		int sunY = 768;
-		if(player.y >= 400) sunY = (int) (player.y + 400);
-		float divider = this.screenWidth/this.sun.length;
-		for(int i = 0; i <= this.sun.length-1; i +=2) {
-			this.sun[i].setPosition(player.x - (i*divider), sunY);
-			this.sun[i+1].setPosition(player.x + (i*divider), sunY);
-		}
 	}
 
 }

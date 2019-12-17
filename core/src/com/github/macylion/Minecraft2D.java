@@ -50,7 +50,6 @@ public class Minecraft2D extends ApplicationAdapter {
 		viewport = new FillViewport(1024, 768, cam);
 		overworld = new Overworld(WIDTH, HEIGHT);
 		player = new Player(new Vector2(0, overworld.highSpawn()+8), overworld.getWorld(), txtBank);
-		overworld.setSunFilter(player.getFilter());
 		//debug
 		debugFont = new BitmapFont();
 
@@ -112,7 +111,6 @@ public class Minecraft2D extends ApplicationAdapter {
 		overworld.update(cam);
 		player.update(this.overworld.blocks);
 		cam.position.set(this.player.getPosition(), 0);
-		overworld.setSunPosition(player);
 		if(Gdx.input.isKeyJustPressed(Keys.PLUS) && cam.zoom < 1)
 			cam.zoom += 0.1f;
 		if(Gdx.input.isKeyJustPressed(Keys.MINUS) && cam.zoom > 0.2f)
@@ -134,6 +132,4 @@ public class Minecraft2D extends ApplicationAdapter {
 		overworld.dispose();
 		GUIbatch.dispose();
 	}
-	
-	//test
 }
