@@ -39,6 +39,7 @@ public class Overworld {
 		this.world = new World(new Vector2(0, -100), true); 
 		this.ray = new RayHandler(this.world);
 		this.ray.setShadows(true);
+		this.ray.setAmbientLight(0.02f);
 		
 		this.sun = new PointLight[32];
 		for(int i = 0; i <= this.sun.length-1; i++) {
