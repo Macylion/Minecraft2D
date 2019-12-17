@@ -27,7 +27,6 @@ public class Overworld {
 	RayHandler ray;
 	public ArrayList<Block> blocks;
 	Rectangle renderRect;
-	PointLight playerLight;
 	//debug
 	Box2DDebugRenderer debugRenderer;
 	boolean isDebug = false;
@@ -39,13 +38,6 @@ public class Overworld {
 		this.world = new World(new Vector2(0, -100), true); 
 		this.ray = new RayHandler(this.world);
 		this.ray.setShadows(true);
-		this.ray.setAmbientLight(0.1f);
-		
-		this.playerLight = new PointLight(this.ray, 32);
-		this.playerLight.setPosition(0, 0);
-		this.playerLight.setColor(0, 0, 0, 1);
-		this.playerLight.setDistance(192);
-		this.playerLight.setSoftnessLength(64);
 		
 		this.debugRenderer = new Box2DDebugRenderer();
 		this.blocks = new ArrayList<Block>();
@@ -106,11 +98,10 @@ public class Overworld {
 		this.ray.updateAndRender();
 	}
 	
-	public void update(OrthographicCamera cam, Player player) {
+	public void update(OrthographicCamera cam) {
 		this.world.step(1/60f, 6, 2);
 		this.renderRect.setPosition(cam.position.x - (this.screenWidth/2), cam.position.y - (this.screenHeight/2));
 		this.ray.setCombinedMatrix(cam);
-		this.playerLight.setPosition(new Vector2(player.getBody().getPosition().x, player.getBody().getPosition().y+12));
 	}
 	
 	public World getWorld() {
