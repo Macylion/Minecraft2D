@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.github.macylion.Inventory;
 import com.github.macylion.texturebank.TextureBank;
 
 public class Block extends Rectangle{
@@ -60,8 +61,10 @@ public class Block extends Rectangle{
 				else 
 					batch.draw(bank.getTexture("alert3"), this.x, this.y);
 				
-				if(this.durability < 0)
+				if(this.durability < 0) {
+					Inventory.addItem(txtKey, 1);
 					this.die();
+				}
 				
 			}
 			else if(this.durability < this.maxDurability)
