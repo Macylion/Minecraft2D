@@ -44,7 +44,7 @@ public class Player extends Entity{
 	
 	public void draw(SpriteBatch batch) {
 		TextureRegion currentFrame = this.anims[this.currAnim].getKeyFrame(stateTime, true);
-		batch.draw(currentFrame, this.x, this.y);
+		batch.draw(currentFrame, this.groundBody.getPosition().x-(this.width/2), this.groundBody.getPosition().y-(this.height/2));
 	}
 	
 	public void update(ArrayList<Block> blocks) {

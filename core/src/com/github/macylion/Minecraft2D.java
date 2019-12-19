@@ -40,6 +40,7 @@ public class Minecraft2D extends ApplicationAdapter {
 	BitmapFont debugFont;
 	SpriteBatch GUIbatch;
 	
+	
 	@Override
 	public void create () {
 		System.out.println("[SYSTEM] Game starting...");
@@ -103,8 +104,8 @@ public class Minecraft2D extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
-		overworld.draw(txtBank, batch, cam);
 		player.draw(batch);
+		overworld.draw(txtBank, batch, cam);
 		batch.end();
 		
 		gui.draw(txtBank);

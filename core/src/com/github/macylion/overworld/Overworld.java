@@ -145,7 +145,6 @@ public class Overworld {
 			this.ray.setShadows(false);
 		if(Gdx.input.isKeyJustPressed(Keys.STAR))
 			this.ray.setShadows(true);
-
 		this.ray.updateAndRender();
 	}
 	
