@@ -72,25 +72,26 @@ public class Overworld {
 						this.blocks.add(new Block((int)p.x*32, (int)((p.y+2)*32), "b-wood-log", this.world, false));
 						this.blocks.add(new Block((int)p.x*32, (int)((p.y+3)*32), "b-wood-log", this.world, false));
 						this.blocks.add(new Block((int)p.x*32, (int)((p.y+4)*32), "b-wood-log", this.world, false));
+						this.blocks.add(new Block((int)p.x*32, (int)((p.y+5)*32), "b-wood-log", this.world, false));
 						//leaves
-						this.blocks.add(new Block((int)((p.x+1)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
-						this.blocks.add(new Block((int)((p.x+2)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
-						this.blocks.add(new Block((int)((p.x+3)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
-						this.blocks.add(new Block((int)((p.x-1)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
-						this.blocks.add(new Block((int)((p.x-2)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
-						this.blocks.add(new Block((int)((p.x-3)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
-						
 						this.blocks.add(new Block((int)((p.x+1)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
 						this.blocks.add(new Block((int)((p.x+2)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x+3)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
 						this.blocks.add(new Block((int)((p.x-1)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
 						this.blocks.add(new Block((int)((p.x-2)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
-						this.blocks.add(new Block((int)((p.x)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x-3)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
 						
 						this.blocks.add(new Block((int)((p.x+1)*32), (int)((p.y+6)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x+2)*32), (int)((p.y+6)*32), "b-wood-leaf", this.world, false));
 						this.blocks.add(new Block((int)((p.x-1)*32), (int)((p.y+6)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x-2)*32), (int)((p.y+6)*32), "b-wood-leaf", this.world, false));
 						this.blocks.add(new Block((int)((p.x)*32), (int)((p.y+6)*32), "b-wood-leaf", this.world, false));
 						
+						this.blocks.add(new Block((int)((p.x+1)*32), (int)((p.y+7)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x-1)*32), (int)((p.y+7)*32), "b-wood-leaf", this.world, false));
 						this.blocks.add(new Block((int)((p.x)*32), (int)((p.y+7)*32), "b-wood-leaf", this.world, false));
+						
+						this.blocks.add(new Block((int)((p.x)*32), (int)((p.y+8)*32), "b-wood-leaf", this.world, false));
 					}
 					treeSpace++;
 				}
