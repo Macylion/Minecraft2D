@@ -67,6 +67,10 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank.addTexture("fog.png", "fog");
 		txtBank.addTexture("cursor.png", "cursor");
 		
+		txtBank.addTexture("alert_1.png", "alert1");
+		txtBank.addTexture("alert_2.png", "alert2");
+		txtBank.addTexture("alert_3.png", "alert3");
+		
 		txtBank.addTexture("blocks/brick.png", "b-brick");
 		txtBank.addTexture("blocks/copper_ore.png", "b-copper-ore");
 		txtBank.addTexture("blocks/dirt_grass.png", "b-dirt-grass");

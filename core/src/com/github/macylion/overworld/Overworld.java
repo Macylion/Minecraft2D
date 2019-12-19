@@ -100,7 +100,7 @@ public class Overworld {
 
 	public void draw(TextureBank bank, SpriteBatch batch, OrthographicCamera camera) {
 		for(Block b : this.blocks)
-			b.draw(batch, bank, this.renderRect);
+			b.draw(batch, bank, this.renderRect, camera);
 		
 		//debug
 		if(this.isDebug)
