@@ -53,8 +53,9 @@ public class Overworld {
 		
 		this.debugRenderer = new Box2DDebugRenderer();
 		this.blocks = new ArrayList<Block>();
-		this.renderRect = new Rectangle(0, 0, this.screenWidth, this.screenHeight);
+		this.renderRect = new Rectangle(0, 0, this.screenWidth+256, this.screenHeight+128);
 		generateWorld();
+		
 	}
 	
 	public void setSunFilter(Filter filter) {
@@ -75,12 +76,44 @@ public class Overworld {
 			else if(ran >= 0.6f && last.y > 12)
 				last.y -= 1;
 		}
-			
+		
+		int treeSpace = 0;
+		
 		for(Vector2 p : points) {
 			int layer = 0;
 			for(int i = (int)p.y; i > -32; i--) {
 				String txt = "b-rock";
-				if(layer == 0) txt = "b-dirt-grass";
+				if(layer == 0) {
+					txt = "b-dirt-grass";
+					if(Math.random() >= 0.8f && treeSpace > 7) {
+						treeSpace = 0;
+						//log
+						this.blocks.add(new Block((int)p.x*32, (int)((p.y+1)*32), "b-wood-log", this.world, false));
+						this.blocks.add(new Block((int)p.x*32, (int)((p.y+2)*32), "b-wood-log", this.world, false));
+						this.blocks.add(new Block((int)p.x*32, (int)((p.y+3)*32), "b-wood-log", this.world, false));
+						this.blocks.add(new Block((int)p.x*32, (int)((p.y+4)*32), "b-wood-log", this.world, false));
+						//leaves
+						this.blocks.add(new Block((int)((p.x+1)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x+2)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x+3)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x-1)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x-2)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x-3)*32), (int)((p.y+4)*32), "b-wood-leaf", this.world, false));
+						
+						this.blocks.add(new Block((int)((p.x+1)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x+2)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x-1)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x-2)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x)*32), (int)((p.y+5)*32), "b-wood-leaf", this.world, false));
+						
+						this.blocks.add(new Block((int)((p.x+1)*32), (int)((p.y+6)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x-1)*32), (int)((p.y+6)*32), "b-wood-leaf", this.world, false));
+						this.blocks.add(new Block((int)((p.x)*32), (int)((p.y+6)*32), "b-wood-leaf", this.world, false));
+						
+						this.blocks.add(new Block((int)((p.x)*32), (int)((p.y+7)*32), "b-wood-leaf", this.world, false));
+					}
+					treeSpace++;
+				}
 				else if(layer < 5) txt = "b-dirt";
 				if(i == -31) txt = "b-void";
 				this.blocks.add(new Block((int)p.x*32, i*32, txt, this.world));
@@ -88,6 +121,7 @@ public class Overworld {
 			}
 		}
 		System.out.println("[WORLD] World generated successfully!");
+
 	}
 	
 	public int highSpawn() {
@@ -117,7 +151,7 @@ public class Overworld {
 	
 	public void update(OrthographicCamera cam) {
 		this.world.step(1/60f, 6, 2);
-		this.renderRect.setPosition(cam.position.x - (this.screenWidth/2), cam.position.y - (this.screenHeight/2));
+		this.renderRect.setPosition(cam.position.x - (this.renderRect.width/2), cam.position.y - (this.renderRect.height/2));
 		this.ray.setCombinedMatrix(cam);
 	}
 	

@@ -44,9 +44,14 @@ public class Block extends Rectangle{
 		groundBody.createFixture(groundBox, 0.0f); 
 	}
 	
+	public Block(int x, int y, String textureKey, World world, boolean active) {
+		this(x, y, textureKey, world);
+		this.groundBody.setActive(active);
+	}
+	
 	public void draw(SpriteBatch batch, TextureBank bank, Rectangle renderRect, OrthographicCamera cam) {
 		if(renderRect.overlaps(this) && this.isAlive) {
-			batch.draw(bank.getTexture(this.txtKey), this.x, this.y);
+			batch.draw(bank.getTexture(this.txtKey), this.groundBody.getPosition().x-16, this.groundBody.getPosition().y-16);
 			this.isOnScreen = true;
 			if(this.contains((Gdx.input.getX() + (cam.position.x-1024/2)), 
 					((768-Gdx.input.getY()) + (cam.position.y-768/2)))
