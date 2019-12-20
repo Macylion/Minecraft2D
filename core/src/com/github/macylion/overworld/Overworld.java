@@ -157,7 +157,7 @@ public class Overworld {
 						if(v2.x == b.x && v2.y == b.y) {
 							ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), "b-dark-rock", false));
 							died = true;
-							b.die();
+							b.die(this.world);
 							break;
 						}
 					if(!died && b.getType().equals("b-rock") && Math.random() > 0.9f) {
@@ -165,7 +165,7 @@ public class Overworld {
 						if(Math.random() > 0.8f) texture = "b-tin-ore";
 						else if(Math.random() > 0.8f) texture = "b-iron-ore";
 						ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), texture, true));
-						b.die();
+						b.die(this.world);
 					}
 				}
 			}
@@ -188,7 +188,7 @@ public class Overworld {
 
 	public void draw(TextureBank bank, SpriteBatch batch, OrthographicCamera camera, Rectangle distanceRect) {
 		for(Block b : this.blocks)
-			b.draw(batch, bank, this.renderRect, camera, distanceRect);
+			b.draw(batch, bank, this.renderRect, camera, distanceRect, this.world);
 		
 		//debug
 		if(this.isDebug)

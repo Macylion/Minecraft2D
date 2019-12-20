@@ -90,14 +90,6 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank.addTexture("blocks/flower.png", "b-flower");
 		
 		System.out.println("[SYSTEM] Textures loaded.");
-		Inventory.addItem("a", 4);
-
-		Inventory.addItem("d", 4);
-
-		Inventory.addItem("b", 4);
-
-		Inventory.addItem("c", 4);
-		Inventory.addItem("c", 4);
 	}
 
 	@Override

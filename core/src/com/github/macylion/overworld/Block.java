@@ -33,8 +33,11 @@ public class Block extends Rectangle{
 		this.txtKey = textureKey;
 		this.maxDurability = 1;
 		if(this.txtKey.equals("b-rock")) this.maxDurability = 1.4f;
-		if(this.txtKey.equals("b-wood-leaf")) this.maxDurability = 0.1f;
+		if(this.txtKey.equals("b-dark-rock")) this.maxDurability = 1.6f;
+		if(this.txtKey.equals("b-wood-leaf")) this.maxDurability = 0.2f;
 		if(this.txtKey.equals("b-sand")) this.maxDurability = 0.7f;
+		if(this.txtKey.equals("b-ladder")) this.maxDurability = 0.2f;
+		if(this.txtKey.equals("b-glass")) this.maxDurability = 0.2f;
 		if(this.txtKey.equals("b-void")) this.maxDurability = 1000f;
 		this.durability = this.maxDurability;
 		
@@ -52,7 +55,7 @@ public class Block extends Rectangle{
 		this.groundBody.setActive(active);
 	}
 	
-	public void draw(SpriteBatch batch, TextureBank bank, Rectangle renderRect, OrthographicCamera cam, Rectangle distanceRect) {
+	public void draw(SpriteBatch batch, TextureBank bank, Rectangle renderRect, OrthographicCamera cam, Rectangle distanceRect, World world) {
 		if(this.isAlive && renderRect.overlaps(this)) {
 			batch.draw(bank.getTexture(this.txtKey), this.groundBody.getPosition().x-16, this.groundBody.getPosition().y-16);
 			this.isOnScreen = true;
@@ -72,7 +75,7 @@ public class Block extends Rectangle{
 				
 				if(this.durability < 0) {
 					Inventory.addItem(txtKey, 1);
-					this.die();
+					this.die(world);
 				}
 				
 			}
@@ -83,9 +86,11 @@ public class Block extends Rectangle{
 			this.isOnScreen = false;
 	}
 	
-	public void die() {
+	public void die(World world) {
 		this.x = -20000;
 		this.y = -2000;
+		world.destroyBody(this.groundBody); // not sure about it
+		this.dispose(); // not sure about it
 		this.groundBody.setActive(false);
 		this.isAlive = false;
 	}
