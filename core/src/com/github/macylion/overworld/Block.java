@@ -34,6 +34,7 @@ public class Block extends Rectangle{
 		this.maxDurability = 1;
 		if(this.txtKey.equals("b-rock")) this.maxDurability = 1.4f;
 		if(this.txtKey.equals("b-wood-leaf")) this.maxDurability = 0.1f;
+		if(this.txtKey.equals("b-sand")) this.maxDurability = 0.7f;
 		if(this.txtKey.equals("b-void")) this.maxDurability = 1000f;
 		this.durability = this.maxDurability;
 		

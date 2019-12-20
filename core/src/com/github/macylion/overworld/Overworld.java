@@ -21,7 +21,7 @@ import box2dLight.RayHandler;
 
 public class Overworld {
 	
-	final boolean GENERATE_CAVES = true;
+	final boolean GENERATE_CAVES = true; //CHANGE THIS
 	int screenWidth;
 	int screenHeight;
 	World world;
@@ -100,6 +100,14 @@ public class Overworld {
 					treeSpace++;
 				}
 				else if(layer < 5) txt = "b-dirt";
+				
+				if(i == -24) if(Math.random() > 0.9f) txt = "b-sand";
+				if(i == -25) if(Math.random() > 0.8f) txt = "b-sand";
+				if(i == -26) if(Math.random() > 0.7f) txt = "b-sand";
+				if(i == -27) if(Math.random() > 0.6f) txt = "b-sand";
+				if(i == -28) if(Math.random() > 0.5f) txt = "b-sand";
+				if(i == -29) if(Math.random() > 0.4f) txt = "b-sand";
+				if(i == -30) if(Math.random() > 0.3f) txt = "b-sand";
 				if(i == -31) txt = "b-void";
 				this.blocks.add(new Block((int)p.x*32, i*32, txt, this.world));
 				layer++;
@@ -149,31 +157,10 @@ public class Overworld {
 							died = true;
 							break;
 						}
-					if(!died && b.getType().equals("b-rock") && Math.random() > 0.5f) {
+					if(!died && b.getType().equals("b-rock") && Math.random() > 0.9f) {
 						String texture = "b-copper-ore";
-						/*
-						 * 
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * TO DO: THIS;
-						 * 
-						 * 
-						 * 
-						 * 
-						 * 
-						 */
+						if(Math.random() > 0.8f) texture = "b-tin-ore";
+						else if(Math.random() > 0.8f) texture = "b-iron-ore";
 						ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), texture));
 						b.die();
 					}
