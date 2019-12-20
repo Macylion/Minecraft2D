@@ -66,6 +66,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank.addTexture("none.png", "none");
 		txtBank.addTexture("fog.png", "fog");
 		txtBank.addTexture("cursor.png", "cursor");
+		txtBank.addTexture("bg.png", "bg");
 		
 		txtBank.addTexture("alert_1.png", "alert1");
 		txtBank.addTexture("alert_2.png", "alert2");
@@ -78,6 +79,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank.addTexture("blocks/glass.png", "b-glass");
 		txtBank.addTexture("blocks/iron_ore.png", "b-iron-ore");
 		txtBank.addTexture("blocks/rock.png", "b-rock");
+		txtBank.addTexture("blocks/dark-rock.png", "b-dark-rock");
 		txtBank.addTexture("blocks/sand.png", "b-sand");
 		txtBank.addTexture("blocks/tin_ore.png", "b-tin-ore");
 		txtBank.addTexture("blocks/void.png", "b-void");
@@ -105,6 +107,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
+		batch.draw(txtBank.getTexture("bg"), cam.position.x - (WIDTH/2), cam.position.y - (HEIGHT/2));
 		overworld.draw(txtBank, batch, cam, player.getDistanceRect());
 		player.draw(batch);
 		batch.end();

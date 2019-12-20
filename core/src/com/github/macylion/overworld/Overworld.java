@@ -21,7 +21,7 @@ import box2dLight.RayHandler;
 
 public class Overworld {
 	
-	final boolean GENERATE_CAVES = true; //CHANGE THIS
+	final boolean GENERATE_CAVES = false; //CHANGE THIS
 	int screenWidth;
 	int screenHeight;
 	World world;
@@ -155,7 +155,7 @@ public class Overworld {
 				if(b.getType().equals("b-rock") || b.getType().equals("b-dirt")) {
 					for(Vector2 v2 : caveOrigin) 
 						if(v2.x == b.x && v2.y == b.y) {
-							ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), "b-glass", false));
+							ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), "b-dark-rock", false));
 							died = true;
 							b.die();
 							break;
