@@ -84,6 +84,8 @@ public class Minecraft2D extends ApplicationAdapter {
 		txtBank.addTexture("blocks/wood_leaf.png", "b-wood-leaf");
 		txtBank.addTexture("blocks/wood_log.png", "b-wood-log");
 		txtBank.addTexture("blocks/wood.png", "b-wood");
+		txtBank.addTexture("blocks/ladder.png", "b-ladder");
+		txtBank.addTexture("blocks/flower.png", "b-flower");
 		
 		System.out.println("[SYSTEM] Textures loaded.");
 		Inventory.addItem("a", 4);

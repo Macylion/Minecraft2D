@@ -93,6 +93,9 @@ public class Overworld {
 						
 						this.blocks.add(new Block((int)((p.x)*32), (int)((p.y+8)*32), "b-wood-leaf", this.world, false));
 					}
+					else if(Math.random() >= 0.8f && treeSpace > 2) {
+						this.blocks.add(new Block((int)p.x*32, (int)((p.y+1)*32), "b-flower", this.world, false));
+					}
 					treeSpace++;
 				}
 				else if(layer < 5) txt = "b-dirt";

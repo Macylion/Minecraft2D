@@ -97,6 +97,7 @@ public class Block extends Rectangle{
 	}
 	
 	public boolean canGoThrough() {
+		if(this.txtKey.equals("b-ladder")) return true;
 		return this.groundBody.isActive();
 	}
 
