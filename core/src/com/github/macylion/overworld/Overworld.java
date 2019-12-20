@@ -140,10 +140,12 @@ public class Overworld {
 				public int x;
 				public int y;
 				public String txt;
-				BlockFrame(int x, int y, String txt){
+				public boolean active;
+				BlockFrame(int x, int y, String txt, boolean isActive){
 					this.x = x;
 					this.y = y;
 					this.txt = txt;
+					this.active = isActive;
 				}
 			}
 			
@@ -155,20 +157,21 @@ public class Overworld {
 						if(v2.x == b.x && v2.y == b.y) {
 							b.die();
 							died = true;
+							ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), "b-glass", false));
 							break;
 						}
 					if(!died && b.getType().equals("b-rock") && Math.random() > 0.9f) {
 						String texture = "b-copper-ore";
 						if(Math.random() > 0.8f) texture = "b-tin-ore";
 						else if(Math.random() > 0.8f) texture = "b-iron-ore";
-						ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), texture));
+						ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), texture, true));
 						b.die();
 					}
 				}
 			}
 			
 			for(BlockFrame bf : ores)
-				this.blocks.add(new Block(bf.x, bf.y, bf.txt, this.world));
+				this.blocks.add(new Block(bf.x, bf.y, bf.txt, this.world, bf.active));
 			
 		}
 		System.out.println("[WORLD] World generated successfully!");
