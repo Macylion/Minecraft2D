@@ -33,6 +33,7 @@ public class Block extends Rectangle{
 		this.txtKey = textureKey;
 		this.maxDurability = 1;
 		if(this.txtKey.equals("b-rock")) this.maxDurability = 1.4f;
+		if(this.txtKey.equals("b-wood-leaf")) this.maxDurability = 0.1f;
 		this.durability = this.maxDurability;
 		
 		BodyDef groundBodyDef = new BodyDef();  
@@ -49,11 +50,12 @@ public class Block extends Rectangle{
 		this.groundBody.setActive(active);
 	}
 	
-	public void draw(SpriteBatch batch, TextureBank bank, Rectangle renderRect, OrthographicCamera cam) {
+	public void draw(SpriteBatch batch, TextureBank bank, Rectangle renderRect, OrthographicCamera cam, Rectangle distanceRect) {
 		if(renderRect.overlaps(this) && this.isAlive) {
 			batch.draw(bank.getTexture(this.txtKey), this.groundBody.getPosition().x-16, this.groundBody.getPosition().y-16);
 			this.isOnScreen = true;
-			if(this.contains((Gdx.input.getX() + (cam.position.x-1024/2)), 
+			if(this.overlaps(distanceRect) 
+					&& this.contains((Gdx.input.getX() + (cam.position.x-1024/2)), 
 					((768-Gdx.input.getY()) + (cam.position.y-768/2)))
 					&& Gdx.input.isButtonPressed(Buttons.LEFT)) {
 				
@@ -92,6 +94,10 @@ public class Block extends Rectangle{
 
 	public boolean isOnScreen() {
 		return isOnScreen;
+	}
+	
+	public boolean canGoThrough() {
+		return this.groundBody.isActive();
 	}
 
 }

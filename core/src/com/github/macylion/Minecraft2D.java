@@ -103,7 +103,7 @@ public class Minecraft2D extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
-		overworld.draw(txtBank, batch, cam);
+		overworld.draw(txtBank, batch, cam, player.getDistanceRect());
 		player.draw(batch);
 		batch.end();
 		
@@ -131,9 +131,9 @@ public class Minecraft2D extends ApplicationAdapter {
 		player.update(this.overworld.blocks);
 		overworld.update(cam);
 		cam.position.set(this.player.getPosition(), 0);
-		if(Gdx.input.isKeyJustPressed(Keys.PLUS) && cam.zoom < 10)
+		if(Gdx.input.isKeyJustPressed(Keys.PLUS) && cam.zoom < 2.5f)
 			cam.zoom += 0.1f;
-		if(Gdx.input.isKeyJustPressed(Keys.MINUS) && cam.zoom > 0.2f)
+		if(Gdx.input.isKeyJustPressed(Keys.MINUS) && cam.zoom > 0.1f)
 			cam.zoom -= 0.1f;
 		//debug
 		if(Gdx.input.isButtonJustPressed(Buttons.LEFT)) {

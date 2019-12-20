@@ -24,6 +24,7 @@ public class Player extends Entity{
 	private boolean isJump = false;
 	private float jumpTime = 0;
 	private float jumpTimeMax = 0.15f;
+	private Rectangle distanceRect;
 	
 	public Player(Vector2 position, World world, TextureBank bank) {
 		super(position, world, 19, 30);
@@ -40,6 +41,8 @@ public class Player extends Entity{
 		this.groundBody.setGravityScale(4);
 		
 		this.foot = new Rectangle(position.x+1, position.y-2, this.width-2, 4);
+		
+		this.distanceRect = new Rectangle(0, 0, 160, 128);
 	}
 	
 	public void draw(SpriteBatch batch) {
@@ -53,6 +56,8 @@ public class Player extends Entity{
 		this.foot.y = this.y-2;
 		this.movement(blocks);
 		this.stateTime += Gdx.graphics.getDeltaTime();
+		this.distanceRect.x = this.groundBody.getPosition().x - this.distanceRect.width/2;
+		this.distanceRect.y = this.groundBody.getPosition().y - this.distanceRect.height/2;
 	}
 	
 	private void movement(ArrayList<Block> blocks) {
@@ -60,7 +65,7 @@ public class Player extends Entity{
 		boolean isInAir = true;
 		
 		for(Block b : blocks)
-			if(b.isOnScreen() && b.overlaps(this.foot)) {
+			if(b.isOnScreen() && b.canGoThrough() && b.overlaps(this.foot)) {
 				isInAir = false;
 				break;
 			}
@@ -110,6 +115,10 @@ public class Player extends Entity{
 	
 	public int getCurrentAnim() {
 		return this.currAnim;
+	}
+	
+	public Rectangle getDistanceRect() {
+		return this.distanceRect;
 	}
 	
 }
