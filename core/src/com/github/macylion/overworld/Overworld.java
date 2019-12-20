@@ -21,6 +21,7 @@ import box2dLight.RayHandler;
 
 public class Overworld {
 	
+	final boolean GENERATE_CAVES = true;
 	int screenWidth;
 	int screenHeight;
 	World world;
@@ -103,6 +104,85 @@ public class Overworld {
 				this.blocks.add(new Block((int)p.x*32, i*32, txt, this.world));
 				layer++;
 			}
+		}
+		
+		if(this.GENERATE_CAVES) {
+			ArrayList<Vector2> caveOrigin = new ArrayList<Vector2>();
+			for(Block b : this.blocks) 
+				if(b.getType().equals("b-rock") && Math.random() > 0.99f)
+					caveOrigin.add(new Vector2(b.getX(), b.getY()));
+	
+			for(int i = 0; i <= 4; i++) {
+				ArrayList<Vector2> caveBlocks = new ArrayList<Vector2>();
+				for(Vector2 v : caveOrigin) {
+					if(Math.random() > 0.4f)
+						caveBlocks.add(new Vector2(v.x+32, v.y));
+					if(Math.random() > 0.4f)
+						caveBlocks.add(new Vector2(v.x-32, v.y));
+					if(Math.random() > 0.4f)
+						caveBlocks.add(new Vector2(v.x, v.y+32));
+					if(Math.random() > 0.4f)
+						caveBlocks.add(new Vector2(v.x, v.y-32));
+				}
+				caveOrigin.addAll(caveBlocks);
+				
+			}
+			
+			class BlockFrame {
+				public int x;
+				public int y;
+				public String txt;
+				BlockFrame(int x, int y, String txt){
+					this.x = x;
+					this.y = y;
+					this.txt = txt;
+				}
+			}
+			
+			ArrayList<BlockFrame> ores = new ArrayList<BlockFrame>();
+			for(Block b : this.blocks) {
+				boolean died = false;
+				if(b.getType().equals("b-rock") || b.getType().equals("b-dirt")) {
+					for(Vector2 v2 : caveOrigin) 
+						if(v2.x == b.x && v2.y == b.y) {
+							b.die();
+							died = true;
+							break;
+						}
+					if(!died && b.getType().equals("b-rock") && Math.random() > 0.5f) {
+						String texture = "b-copper-ore";
+						/*
+						 * 
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * TO DO: THIS;
+						 * 
+						 * 
+						 * 
+						 * 
+						 * 
+						 */
+						ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), texture));
+						b.die();
+					}
+				}
+			}
+			
+			for(BlockFrame bf : ores)
+				this.blocks.add(new Block(bf.x, bf.y, bf.txt, this.world));
+			
 		}
 		System.out.println("[WORLD] World generated successfully!");
 
