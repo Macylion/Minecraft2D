@@ -155,9 +155,9 @@ public class Overworld {
 				if(b.getType().equals("b-rock") || b.getType().equals("b-dirt")) {
 					for(Vector2 v2 : caveOrigin) 
 						if(v2.x == b.x && v2.y == b.y) {
-							b.die();
-							died = true;
 							ores.add(new BlockFrame((int)b.getX(), (int)b.getY(), "b-glass", false));
+							died = true;
+							b.die();
 							break;
 						}
 					if(!died && b.getType().equals("b-rock") && Math.random() > 0.9f) {
