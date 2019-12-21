@@ -37,8 +37,9 @@ public class Block extends Rectangle{
 		if(this.txtKey.equals("b-wood-leaf")) this.maxDurability = 0.2f;
 		if(this.txtKey.equals("b-sand")) this.maxDurability = 0.7f;
 		if(this.txtKey.equals("b-ladder")) this.maxDurability = 0.2f;
-		if(this.txtKey.equals("b-glass")) this.maxDurability = 0.2f;
+		if(this.txtKey.equals("b-glass")) this.maxDurability = 0.4f;
 		if(this.txtKey.equals("b-void")) this.maxDurability = 1000f;
+		if(this.txtKey.equals("b-flower")) this.maxDurability = 0.2f;
 		this.durability = this.maxDurability;
 		
 		BodyDef groundBodyDef = new BodyDef();  
