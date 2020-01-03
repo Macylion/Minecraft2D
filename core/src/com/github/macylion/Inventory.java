@@ -37,7 +37,11 @@ public abstract class Inventory {
 			slots.add(new ItemSlot(name, quantity));
 	}
 	
-	private static class ItemSlot {
+	public static ArrayList<ItemSlot> getItems(){
+		return slots;
+	}
+	
+	public static class ItemSlot {
 		
 		private String itemName;
 		private int quantity;
